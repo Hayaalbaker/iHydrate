@@ -8,7 +8,15 @@
 import SwiftUI
 
 struct Onboarding: View {
-@State private var bodyWeight: String = ""
+    @State private var bodyWeight: String = ""
+    
+    var dailyWaterIntake: Double {
+        // Calculate daily water intake based on the body weight
+        if let weight = Double(bodyWeight) {
+            return weight * 0.03 // Return calculated intake
+        }
+        return 0.0 // Default value if input is invalid
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -16,30 +24,36 @@ struct Onboarding: View {
             Text("Hydrate")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-            Text("Start with Hydrate to record and track your water intake daily based on your needs and stay hydrated")
+            
+            Text("Stay hydrated by recording and tracking your daily water intake based on your needs.")
                 .font(.body)
                 .foregroundColor(.gray)
-        HStack {
-            Text("Body weight")
-                .font(.headline)
-        Spacer()
-            TextField("Value", text: $bodyWeight)
-                .frame(width: 100)
             
-            Button(action: {
-                bodyWeight = ""
+            HStack {
+                Text("Body Weight (kg)")
+                    .font(.headline)
+                
+                Spacer()
+                
+                TextField("Value", text: $bodyWeight)
+                    .frame(width: 100)
+                    .keyboardType(.decimalPad) // Ensure numeric input
+                    .padding(8)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(5)
+                
+                Button(action: {
+                    bodyWeight = ""
                 }) {
-            Image(systemName: "xmark.circle.fill")
-                .foregroundColor(.gray)
-                    }
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.gray)
                 }
-                .padding()
-                .background(Color(.systemGray6))
-
+            }
+            .padding()
+            
             Spacer()
             
-            Button(action: {
-            }) {
+            NavigationLink(destination: NotificationPreferences(dailyWaterIntake: dailyWaterIntake)) {
                 Text("Next")
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -47,11 +61,12 @@ struct Onboarding: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-
+            .padding(.top, 20)
         }
         .padding()
         .padding(.top, 100)
-    }}
+    }
+}
 
 #Preview {
     Onboarding()

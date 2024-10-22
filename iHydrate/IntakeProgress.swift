@@ -9,7 +9,11 @@ import SwiftUI
 
 struct IntakeProgress: View {
     @State private var waterIntake: Double = 0.0
-    let totalWaterGoal: Double = 2.7
+    let totalWaterGoal: Double
+    
+    init(totalWaterGoal: Double) {
+        self.totalWaterGoal = totalWaterGoal
+    }
 
     var body: some View {
         VStack {
@@ -97,13 +101,12 @@ struct IntakeProgress: View {
 
     // MARK: - Functions
     func iconForWaterIntake() -> String {
-        print("Current water intake: \(waterIntake)")
         switch waterIntake {
         case 0.0:
             return "zzz"
         case 0.1..<1.0:
             return "tortoise.fill"
-        case 1.0..<2.7:
+        case 1.0..<totalWaterGoal:
             return "hare.fill"
         default:
             return "hands.clap.fill"
@@ -112,5 +115,5 @@ struct IntakeProgress: View {
 }
 
 #Preview {
-    IntakeProgress()
+    IntakeProgress(totalWaterGoal: 2.7)
 }
