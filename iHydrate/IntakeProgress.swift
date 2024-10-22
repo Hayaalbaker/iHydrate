@@ -8,22 +8,28 @@
 import SwiftUI
 
 struct IntakeProgress: View {
-    @State private var waterIntake: Double = 0.05
+    @State private var waterIntake: Double = 0.0
     let totalWaterGoal: Double = 2.7
 
     var body: some View {
         VStack {
-            Text("Today's Water Intake")
-                .font(.headline)
-                .foregroundColor(Color(UIColor.systemGray2))
-                .padding(.top, 20)
+            // MARK: - Header
+            VStack(alignment: .leading) {
+                Text("Today's Water Intake")
+                    .font(.headline)
+                    .foregroundColor(Color(UIColor.systemGray2))
+                    .padding(.top, 20)
 
-            
-            Text("\(String(format: "%.1f", waterIntake)) liter / \(String(format: "%.1f", totalWaterGoal)) liter")
-                .font(.title)
-                .bold()
-                .foregroundColor(waterIntake >= totalWaterGoal ? .green : .black)
+                Text("\(String(format: "%.1f", waterIntake)) liter / \(String(format: "%.1f", totalWaterGoal)) liter")
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(waterIntake >= totalWaterGoal ? .green : .black)
+            }
+            .padding(.horizontal) // Add horizontal padding to the header
 
+            Spacer()
+
+            // MARK: - Progress Circle
             ZStack {
                 Circle()
                     .stroke(Color(UIColor.systemGray6), lineWidth: 30)
@@ -44,52 +50,63 @@ struct IntakeProgress: View {
             }
             .padding()
 
-            Text("\(String(format: "%.1f", waterIntake)) L")
-                .font(.largeTitle)
-                .bold()
+            Spacer()
 
-            HStack(spacing: 0) {
-                Button(action: {
-                    waterIntake = max(waterIntake - 0.1, 0.0)
-                }) {
-                    Image(systemName: "minus")
-                        .frame(width: 18, height: 22)
-                        .background(Color.clear)
-                        .foregroundColor(.black)
-                        .padding()
-                }
+            // MARK: - Controls
+            VStack { // Centering this section
+                Text("\(String(format: "%.1f", waterIntake)) L")
+                    .font(.title)
+                    .bold()
 
-                Divider()
-                    .background(Color(UIColor.systemGray3))
-                    .frame(width: 1, height: 18)
-                
-                Button(action: {
-                    waterIntake = min(waterIntake + 0.1, totalWaterGoal)
-                }) {
-                    Image(systemName: "plus")
-                        .frame(width: 18, height: 22)
-                        .background(Color.clear)
-                        .foregroundColor(.black)
-                        .padding()
+                HStack(spacing: 0) {
+                    Button(action: {
+                        waterIntake = max(waterIntake - 0.1, 0.0)
+                    }) {
+                        Image(systemName: "minus")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 22)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
+
+                    Divider()
+                        .background(Color(UIColor.systemGray3))
+                        .frame(width: 1, height: 18)
+                    
+                    Button(action: {
+                        waterIntake = min(waterIntake + 0.1, totalWaterGoal)
+                    }) {
+                        Image(systemName: "plus")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 22)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
                 }
+                .frame(width: 94, height: 32)
+                .background(Color(UIColor.tertiarySystemFill))
+                .cornerRadius(8)
             }
-            .frame(width: 94, height: 44)
-            .background(Color(UIColor.tertiarySystemFill))
-            .cornerRadius(8)
+            .frame(maxWidth: .infinity) // Center the controls
+            .padding()
         }
         .padding()
     }
 
+    // MARK: - Functions
     func iconForWaterIntake() -> String {
+        print("Current water intake: \(waterIntake)")
         switch waterIntake {
         case 0.0:
-            return "zzz.fill"
+            return "zzz"
         case 0.1..<1.0:
             return "tortoise.fill"
         case 1.0..<2.7:
             return "hare.fill"
         default:
-            return "hands.clap.fill" 
+            return "hands.clap.fill"
         }
     }
 }
