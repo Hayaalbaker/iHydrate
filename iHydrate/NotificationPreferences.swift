@@ -52,22 +52,33 @@ struct NotificationPreferences: View {
                             .font(.subheadline)
                         
                         Spacer()
-                            // Hour input field
-                            TextField("HH", text: $startHour)
-                                .frame(width: 40)
-                                .multilineTextAlignment(.center)
-                                .keyboardType(.numberPad) // Number pad input
-                                .textFieldStyle(RoundedBorderTextFieldStyle()) // Rounded style for input box
+
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.gray.opacity(0.2))
+                                .frame(width: 90, height: 30)
                             
-                            Text(":") // Colon separator
-                            
-                            // Minute input field
-                            TextField("MM", text: $startMinute)
-                                .frame(width: 40)
-                                .multilineTextAlignment(.center)
-                                .keyboardType(.numberPad) // Number pad input
-                                .textFieldStyle(RoundedBorderTextFieldStyle()) // Rounded style for input box
-                            
+                            HStack(spacing: 0) {
+                                TextField("HH", text: $endHour)
+                                    .frame(width: 40)
+                                    .multilineTextAlignment(.center)
+                                    .keyboardType(.numberPad)
+                                    .textFieldStyle(PlainTextFieldStyle())
+                                
+                                Text(":")
+                                    .padding(0)
+                                
+                                TextField("MM", text: $endMinute)
+                                    .frame(width: 40)
+                                    .multilineTextAlignment(.center)
+                                    .keyboardType(.numberPad)
+                                    .textFieldStyle(PlainTextFieldStyle())
+                            }
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.trailing, 5)
+                        }
+                        .fixedSize()
+                        
                             // AM/PM toggle
                             Picker("", selection: $startPeriod) {
                                 ForEach(periods, id: \.self) { period in
@@ -87,35 +98,30 @@ struct NotificationPreferences: View {
                         Spacer()
 
                         ZStack {
-                            // Gray rounded rectangle background
                             RoundedRectangle(cornerRadius: 5)
                                 .fill(Color.gray.opacity(0.2))
-                                .frame(width: 90, height: 30) // Adjust width as needed
+                                .frame(width: 90, height: 30)
                             
-                            HStack(spacing: 0) { // Set spacing to 0 to keep the elements close together
-                                // Hour input field
+                            HStack(spacing: 0) {
                                 TextField("HH", text: $endHour)
                                     .frame(width: 40)
                                     .multilineTextAlignment(.center)
-                                    .keyboardType(.numberPad) // Number pad input
-                                    .textFieldStyle(PlainTextFieldStyle()) // Use PlainTextFieldStyle for no borders
-
-                                Text(":") // Colon separator
-                                    .padding(0) // Remove any padding around the colon
+                                    .keyboardType(.numberPad)
+                                    .textFieldStyle(PlainTextFieldStyle())
                                 
-                                // Minute input field
+                                Text(":")
+                                    .padding(0)
+                                
                                 TextField("MM", text: $endMinute)
                                     .frame(width: 40)
                                     .multilineTextAlignment(.center)
-                                    .keyboardType(.numberPad) // Number pad input
-                                    .textFieldStyle(PlainTextFieldStyle()) // Use PlainTextFieldStyle for no borders
+                                    .keyboardType(.numberPad)
+                                    .textFieldStyle(PlainTextFieldStyle())
                             }
-                            .frame(maxWidth: .infinity, alignment: .trailing) // Align to the right
-                            .padding(.trailing, 5) // Optional: Add some padding to the right edge
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.trailing, 5)
                         }
-                        .fixedSize() // Ensures the ZStack takes only the size it needs
-                        
-                        
+                        .fixedSize()
                         
                         
                         // AM/PM toggle
@@ -124,7 +130,7 @@ struct NotificationPreferences: View {
                                     Text(period).tag(period)
                                 }
                             }
-                            .pickerStyle(SegmentedPickerStyle()) // AM/PM picker style
+                            .pickerStyle(SegmentedPickerStyle())
                             .frame(width: 100)
                         
                     }
