@@ -28,13 +28,14 @@ struct IntakeProgress: View {
                     .font(.title)
                     .bold()
                     .foregroundColor(waterIntake >= totalWaterGoal ? .green : .black)
+                Spacer()
             }
-            .padding(.horizontal) // Add horizontal padding to the header
-
-            Spacer()
+            .padding(.leading) // Adjust padding to left align
+            
 
             // MARK: - Progress Circle
             ZStack {
+                Spacer()
                 Circle()
                     .stroke(Color(UIColor.systemGray6), lineWidth: 30)
                     .frame(width: 300, height: 300)
@@ -58,6 +59,7 @@ struct IntakeProgress: View {
 
             // MARK: - Controls
             VStack { // Centering this section
+                Spacer()
                 Text("\(String(format: "%.1f", waterIntake)) L")
                     .font(.title)
                     .bold()
@@ -92,6 +94,8 @@ struct IntakeProgress: View {
                 .frame(width: 94, height: 32)
                 .background(Color(UIColor.tertiarySystemFill))
                 .cornerRadius(8)
+                
+                Spacer()
             }
             .frame(maxWidth: .infinity) // Center the controls
             .padding()
