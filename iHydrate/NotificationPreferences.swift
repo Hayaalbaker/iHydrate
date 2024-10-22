@@ -27,7 +27,6 @@ struct NotificationPreferences: View {
     var body: some View {
         VStack(alignment: .leading) {
             
-            // Title and description
             Text("Notification Preferences")
                 .font(.title2)
                 .fontWeight(.bold)
@@ -59,7 +58,7 @@ struct NotificationPreferences: View {
                                 .frame(width: 90, height: 30)
                             
                             HStack(spacing: 0) {
-                                TextField("HH", text: $endHour)
+                                TextField("HH", text: $startHour)
                                     .frame(width: 40)
                                     .multilineTextAlignment(.center)
                                     .keyboardType(.numberPad)
@@ -68,7 +67,7 @@ struct NotificationPreferences: View {
                                 Text(":")
                                     .padding(0)
                                 
-                                TextField("MM", text: $endMinute)
+                                TextField("MM", text: $startMinute)
                                     .frame(width: 40)
                                     .multilineTextAlignment(.center)
                                     .keyboardType(.numberPad)
