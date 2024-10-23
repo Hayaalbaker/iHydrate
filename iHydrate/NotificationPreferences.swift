@@ -10,18 +10,18 @@ import SwiftUI
 struct NotificationPreferences: View {
     var dailyWaterIntake: Double // Accept dailyWaterIntake
     @Environment(\.colorScheme) var colorScheme
-
+    
     // Start hour
-    @State private var startHour: String = "3"     // Start hour input
-    @State private var startMinute: String = "00"   // Start minute input
-    @State private var startPeriod: String = "AM"   // Start AM/PM selection
+    @State private var startHour: String = "3"
+    @State private var startMinute: String = "00"
+    @State private var startPeriod: String = "AM"
     
     // End hour
-    @State private var endHour: String = "3"       // End hour input
-    @State private var endMinute: String = "00"    // End minute input
-    @State private var endPeriod: String = "AM"    // End AM/PM selection
+    @State private var endHour: String = "3"
+    @State private var endMinute: String = "00"
+    @State private var endPeriod: String = "AM"
     
-    let periods = ["AM", "PM"]  // Picker options for AM/PM
+    let periods = ["AM", "PM"]  
     
     @State private var selectedIndex: Int? = nil
     let numbers = ["15", "30", "60", "90", "2", "3", "4", "5"]
@@ -45,7 +45,7 @@ struct NotificationPreferences: View {
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.bottom, 20)
-
+            
             Text("The start and end hour")
                 .font(.body)
             Text("Specify the start and end time to receive notifications")
@@ -54,14 +54,14 @@ struct NotificationPreferences: View {
                 .padding(.bottom, 20)
         }
     }
-
+    
     // MARK: - Time Input Section
     private var timeInputSection: some View {
         ZStack {
             Rectangle()
                 .fill(Color(UIColor.systemGray6))
                 .frame(width: 355, height: 108)
-
+            
             VStack {
                 timeInputRow(title: "Start Time", hour: $startHour, minute: $startMinute, period: $startPeriod)
                 Divider().padding(0)
@@ -108,11 +108,11 @@ struct NotificationPreferences: View {
                     Text(period).tag(period)
                 }
             }
-            .pickerStyle(SegmentedPickerStyle()) // AM/PM picker style
+            .pickerStyle(SegmentedPickerStyle())
             .frame(width: 100)
         }
     }
-
+    
     // MARK: - Notification Interval Section
     private var notificationIntervalSection: some View {
         VStack(alignment: .leading) {
@@ -121,12 +121,12 @@ struct NotificationPreferences: View {
             Text("How often would you like to receive notifications within the specified time interval?")
                 .font(.body)
                 .foregroundStyle(Color(UIColor.systemGray2))
-
+            
             ForEach(0..<2) { row in
                 HStack(spacing: 16) {
                     ForEach(0..<4) { column in
                         let index = row * 4 + column
-                        if index < numbers.count { // Ensure we don't go out of bounds
+                        if index < numbers.count {
                             intervalButton(index: index)
                         }
                     }
@@ -135,43 +135,46 @@ struct NotificationPreferences: View {
             }
         }
     }
-
+    
     private func intervalButton(index: Int) -> some View {
         RoundedRectangle(cornerRadius: 12)
-            .fill(selectedIndex == index ? Color(UIColor.systemCyan) : Color(UIColor.systemGray6)) // Blue when selected, gray when not
+            .fill(selectedIndex == index ? Color(UIColor.systemCyan) : Color(UIColor.systemGray6))
             .frame(width: 77, height: 70)
             .overlay(
                 VStack {
-                    Text(numbers[index]) // Display the number part
+                    Text(numbers[index])
                         .font(.system(size: 17))
                         .foregroundColor(selectedIndex == index ? .white : Color(UIColor.systemCyan))
                         .frame(maxWidth: .infinity, alignment: .center)
-
+                    
                     Text(units[index])
                         .font(.system(size: 17))
                         .foregroundColor(selectedIndex == index ? .white : (colorScheme == .light ? .black : .white))
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .multilineTextAlignment(.center)
             )
             .onTapGesture {
                 selectedIndex = selectedIndex == index ? nil : index
             }
+        
     }
-
+    
     // MARK: - Start Button
     private var startButton: some View {
-    //    Spacer()
-        return Button(action: {
-            // Handle start action
-        }) {
-            Text("Start")
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color(UIColor.systemCyan))
-                .foregroundColor(.white)
-                .cornerRadius(10)
+        VStack {
+            Spacer() // Adds space before the Start button
+            Button(action: {
+                // Handle start action
+            }) {
+                Text("Start")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(UIColor.systemCyan))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
         }
     }
 }

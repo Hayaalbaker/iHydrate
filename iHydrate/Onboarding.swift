@@ -54,7 +54,7 @@ struct Onboarding: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: NotificationPreferences(dailyWaterIntake: dailyWaterIntake)) {
+                NavigationLink(destination: NotificationPreferences(dailyWaterIntake: dailyWaterIntake).navigationBarBackButtonHidden(true)) {
                     Text("Next")
                         .frame(maxWidth: .infinity)
                         .padding()
