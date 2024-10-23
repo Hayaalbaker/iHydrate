@@ -57,11 +57,14 @@ struct Onboarding: View {
                 Text("Next")
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.lightBlue)
+                    .background(bodyWeight.isEmpty ? Color.gray : Color.blue) // Change color based on input
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                    .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2) // Add shadow
+                    .padding(.top, 20)
             }
-            .padding(.top, 20)
+            .disabled(bodyWeight.isEmpty)
+
         }
         .padding()
         .padding(.top, 100)
