@@ -21,7 +21,7 @@ struct NotificationPreferences: View {
     @State private var endMinute: String = "00"
     @State private var endPeriod: String = "AM"
     
-    let periods = ["AM", "PM"]  
+    let periods = ["AM", "PM"]
     
     @State private var selectedIndex: Int? = nil
     let numbers = ["15", "30", "60", "90", "2", "3", "4", "5"]
@@ -35,7 +35,7 @@ struct NotificationPreferences: View {
             startButton
         } // MAIN VSTACK
         .padding()
-        .padding(.top, 100)
+        .padding(.top, 50)
     }
     
     // MARK: - Header
@@ -121,6 +121,8 @@ struct NotificationPreferences: View {
             Text("How often would you like to receive notifications within the specified time interval?")
                 .font(.body)
                 .foregroundStyle(Color(UIColor.systemGray2))
+                .lineLimit(nil) 
+                .fixedSize(horizontal: false, vertical: true)
             
             ForEach(0..<2) { row in
                 HStack(spacing: 16) {
@@ -164,9 +166,9 @@ struct NotificationPreferences: View {
     // MARK: - Start Button
     private var startButton: some View {
         VStack {
-            Spacer() // Adds space before the Start button
+            Spacer()
             Button(action: {
-                // Handle start action
+
             }) {
                 Text("Start")
                     .frame(maxWidth: .infinity)
@@ -179,7 +181,6 @@ struct NotificationPreferences: View {
     }
 }
 
-// Preview
 #Preview {
-    NotificationPreferences(dailyWaterIntake: 0.0) // Provide a default value for preview
+    NotificationPreferences(dailyWaterIntake: 0.0)
 }
