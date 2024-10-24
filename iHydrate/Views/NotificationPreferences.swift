@@ -8,37 +8,39 @@
 import SwiftUI
 
 struct NotificationPreferences: View {
-    var dailyWaterIntake: Double // Accept dailyWaterIntake
-    @Environment(\.colorScheme) var colorScheme
-    
-    // Start hour
-    @State private var startHour: String = "3"
-    @State private var startMinute: String = "00"
-    @State private var startPeriod: String = "AM"
-    
-    // End hour
-    @State private var endHour: String = "3"
-    @State private var endMinute: String = "00"
-    @State private var endPeriod: String = "AM"
-    
-    let periods = ["AM", "PM"]
-    
-    @State private var selectedIndex: Int? = nil
-    let numbers = ["15", "30", "60", "90", "2", "3", "4", "5"]
-    let units = ["Mins", "Mins", "Mins", "Mins", "Hours", "Hours", "Hours", "Hours"]
+    @ObservedObject var viewModel: NotificationPreferencesViewModel
+    var dailyWaterIntake: Double
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        VStack(alignment: .leading) {
-            header
-            timeInputSection
-            notificationIntervalSection
-            startButton
-        } // MAIN VSTACK
-        .padding()
-        .padding(.top, 50)
+            VStack(alignment: .leading) {
+                customBackButton
+                header
+                timeInputSection
+                notificationIntervalSection
+                startButton
+            }
+            .padding()
+            .padding(.top, 20)
+            .navigationBarBackButtonHidden(true) // Hide the default back button
+    }
+
+    // MARK: - Header
+    private var customBackButton: some View {
+        Button(action: {
+            presentationMode.wrappedValue.dismiss() // This will dismiss the current view
+        }) {
+            HStack {
+                Image(systemName: "chevron.left")
+                    .font(.title2)
+                Text("Back")
+                    .font(.headline)
+            }
+            .padding()
+            .foregroundColor(.blue)
+        }
     }
     
-    // MARK: - Header
     private var header: some View {
         VStack(alignment: .leading) {
             Text("Notification Preferences")
@@ -63,9 +65,9 @@ struct NotificationPreferences: View {
                 .frame(width: 355, height: 108)
             
             VStack {
-                timeInputRow(title: "Start Time", hour: $startHour, minute: $startMinute, period: $startPeriod)
+                timeInputRow(title: "Start Time", hour: $viewModel.startHour, minute: $viewModel.startMinute, period: $viewModel.startPeriod)
                 Divider().padding(0)
-                timeInputRow(title: "End Time", hour: $endHour, minute: $endMinute, period: $endPeriod)
+                timeInputRow(title: "End Time", hour: $viewModel.endHour, minute: $viewModel.endMinute, period: $viewModel.endPeriod)
             }
             .padding()
         }
@@ -104,7 +106,7 @@ struct NotificationPreferences: View {
             
             // AM/PM toggle
             Picker("", selection: period) {
-                ForEach(periods, id: \.self) { period in
+                ForEach(viewModel.periods, id: \.self) { period in
                     Text(period).tag(period)
                 }
             }
@@ -121,14 +123,14 @@ struct NotificationPreferences: View {
             Text("How often would you like to receive notifications within the specified time interval?")
                 .font(.body)
                 .foregroundStyle(Color(UIColor.systemGray2))
-                .lineLimit(nil) 
+                .lineLimit(nil)
                 .fixedSize(horizontal: false, vertical: true)
             
             ForEach(0..<2) { row in
                 HStack(spacing: 16) {
                     ForEach(0..<4) { column in
                         let index = row * 4 + column
-                        if index < numbers.count {
+                        if index < viewModel.numbers.count {
                             intervalButton(index: index)
                         }
                     }
@@ -140,25 +142,25 @@ struct NotificationPreferences: View {
     
     private func intervalButton(index: Int) -> some View {
         RoundedRectangle(cornerRadius: 12)
-            .fill(selectedIndex == index ? Color(UIColor.systemCyan) : Color(UIColor.systemGray6))
+            .fill(viewModel.selectedIndex == index ? Color(UIColor.systemCyan) : Color(UIColor.systemGray6))
             .frame(width: 77, height: 70)
             .overlay(
                 VStack {
-                    Text(numbers[index])
+                    Text(viewModel.numbers[index])
                         .font(.system(size: 17))
-                        .foregroundColor(selectedIndex == index ? .white : Color(UIColor.systemCyan))
+                        .foregroundColor(viewModel.selectedIndex == index ? .white : Color(UIColor.systemCyan))
                         .frame(maxWidth: .infinity, alignment: .center)
                     
-                    Text(units[index])
+                    Text(viewModel.units[index])
                         .font(.system(size: 17))
-                        .foregroundColor(selectedIndex == index ? .white : (colorScheme == .light ? .black : .white))
+                        .foregroundColor(viewModel.selectedIndex == index ? .white : .black)
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .multilineTextAlignment(.center)
             )
             .onTapGesture {
-                selectedIndex = selectedIndex == index ? nil : index
+                viewModel.selectedIndex = viewModel.selectedIndex == index ? nil : index
             }
         
     }
@@ -182,5 +184,5 @@ struct NotificationPreferences: View {
 }
 
 #Preview {
-    NotificationPreferences(dailyWaterIntake: 0.0)
+    NotificationPreferences(viewModel: NotificationPreferencesViewModel(), dailyWaterIntake: 0.0)
 }
