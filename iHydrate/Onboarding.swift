@@ -32,7 +32,7 @@ struct Onboarding: View {
                 
                 HStack {
                     Text("Body Weight (kg)")
-                        .font(.headline)
+                        .font(.system(size: 17))
                     
                     Spacer()
                     
@@ -40,7 +40,6 @@ struct Onboarding: View {
                         .frame(width: 100)
                         .keyboardType(.decimalPad) // Ensure numeric input
                         .padding(8)
-                        .background(Color(.systemGray6))
                         .cornerRadius(5)
                     
                     Button(action: {
@@ -50,7 +49,8 @@ struct Onboarding: View {
                             .foregroundColor(.gray)
                     }
                 }
-                .padding()
+                .padding([.all], 10)
+                .background(Color(.systemGray6))
                 
                 Spacer()
                 

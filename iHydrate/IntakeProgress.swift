@@ -31,7 +31,7 @@ struct IntakeProgress: View {
                 Spacer()
             }
             .padding(.leading) // Adjust padding to left align
-            
+            .frame(maxWidth: .infinity, alignment: .leading)
 
             // MARK: - Progress Circle
             ZStack {
