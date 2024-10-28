@@ -20,7 +20,7 @@ class IntakeProgressViewModel: ObservableObject {
     }
 
     func increaseWaterIntake() {
-        waterIntake = min(waterIntake + 0.5, totalWaterGoal)
+        waterIntake = min(waterIntake + 0.1, totalWaterGoal)
     }
     
     func iconForWaterIntake() -> String {
@@ -34,5 +34,8 @@ class IntakeProgressViewModel: ObservableObject {
         default:
             return "hands.clap.fill"
         }
+    }
+    var isGoalReached: Bool {
+        return waterIntake >= totalWaterGoal
     }
 }

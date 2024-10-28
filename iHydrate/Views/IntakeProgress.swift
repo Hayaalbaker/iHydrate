@@ -21,6 +21,7 @@ struct IntakeProgress: View {
             controls
         }
         .padding()
+        .navigationBarBackButtonHidden(true)
     }
 
     private var header: some View {
