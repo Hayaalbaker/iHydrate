@@ -24,26 +24,30 @@ struct IntakeProgress: View {
     }
 
     private var header: some View {
-        // Same as your original code, using viewModel.waterIntake and viewModel.totalWaterGoal
         VStack(alignment: .leading) {
             Text("Today's Water Intake")
                 .font(.headline)
                 .foregroundColor(Color(UIColor.systemGray2))
                 .padding(.top, 20)
 
-            Text("\(String(format: "%.1f", viewModel.waterIntake)) liter / \(String(format: "%.1f", viewModel.totalWaterGoal)) liter")
-                .font(.title)
-                .bold()
-                .foregroundColor(viewModel.waterIntake >= viewModel.totalWaterGoal ? .green : .black)
+            HStack {
+                Text("\(viewModel.waterIntake, specifier: "%.1f") liter")
+                    .foregroundColor(viewModel.waterIntake >= viewModel.totalWaterGoal ? .green : .primary)
+                    .font(.title)
+                    .bold()
+                
+                Text(" / \(viewModel.totalWaterGoal, specifier: "%.1f") liter")
+                    .font(.title)
+                    .bold()
+            }
             Spacer()
         }
-        .padding(.leading) // Adjust padding to left align
+        .padding(.leading)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var progressCircle: some View {
         ZStack {
-            Spacer()
             Circle()
                 .stroke(Color(UIColor.systemGray6), lineWidth: 30)
                 .frame(width: 300, height: 300)
@@ -65,32 +69,44 @@ struct IntakeProgress: View {
     }
 
     private var controls: some View {
-        HStack(spacing: 0) {
-            Button(action: viewModel.decreaseWaterIntake) {
-                Image(systemName: "minus")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 18, height: 22)
-                    .foregroundColor(.black)
-                    .padding()
-            }
-
-            Divider()
-                .background(Color(UIColor.systemGray3))
-                .frame(width: 1, height: 18)
+        VStack{
+            Spacer()
+            Text("0.5 liter")
+                .font(.title)
+                .bold()
             
-            Button(action: viewModel.increaseWaterIntake) {
-                Image(systemName: "plus")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 18, height: 22)
-                    .foregroundColor(.black)
-                    .padding()
+            HStack(spacing: 0) {
+                Button(action: viewModel.decreaseWaterIntake) {
+                    Image(systemName: "minus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 22)
+                        .foregroundColor(viewModel.waterIntake >= viewModel.totalWaterGoal ? Color.gray : Color.black)
+                        .padding()
+                }
+                .disabled(viewModel.waterIntake >= viewModel.totalWaterGoal)
+                .opacity(viewModel.waterIntake >= viewModel.totalWaterGoal ? 0.5 : 0.9)
+                
+                Divider()
+                    .background(Color(UIColor.systemGray3))
+                    .frame(width: 1, height: 18)
+                
+                Button(action: viewModel.increaseWaterIntake) {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 18, height: 22)
+                        .foregroundColor(viewModel.waterIntake >= viewModel.totalWaterGoal ? Color.gray : Color.black)
+                        .padding()
+                }
+                .disabled(viewModel.waterIntake >= viewModel.totalWaterGoal)
+                .opacity(viewModel.waterIntake >= viewModel.totalWaterGoal ? 0.5 : 0.9)
             }
+            .frame(width: 94, height: 32)
+            .background(viewModel.waterIntake >= viewModel.totalWaterGoal ? Color(UIColor.tertiarySystemFill.withAlphaComponent(0.1)) : Color(UIColor.tertiarySystemFill))
+            .cornerRadius(8)
+            .disabled(viewModel.waterIntake >= viewModel.totalWaterGoal)
         }
-        .frame(width: 94, height: 32)
-        .background(Color(UIColor.tertiarySystemFill))
-        .cornerRadius(8)
     }
 }
 

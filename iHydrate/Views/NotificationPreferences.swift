@@ -14,8 +14,7 @@ struct NotificationPreferences: View {
     
     var body: some View {
             VStack(alignment: .leading) {
-                customBackButton
-                Spacer()
+
                 header
                 timeInputSection
                 notificationIntervalSection
@@ -23,24 +22,10 @@ struct NotificationPreferences: View {
             }
             .padding()
             .padding(.top, 20)
-            .navigationBarBackButtonHidden(true) // Hide the default back button
+            .navigationBarBackButtonHidden(true)
     }
 
     // MARK: - Header
-    private var customBackButton: some View {
-        Button(action: {
-            presentationMode.wrappedValue.dismiss() // This will dismiss the current view
-        }) {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .font(.title2)
-              //  Text("Back")
-                //    .font(.headline)
-            }
-            .padding()
-            .foregroundColor(.lightBlue)
-        }
-    }
     
     private var header: some View {
         VStack(alignment: .leading) {
@@ -105,7 +90,6 @@ struct NotificationPreferences: View {
             }
             .fixedSize()
             
-            // AM/PM toggle
             Picker("", selection: period) {
                 ForEach(viewModel.periods, id: \.self) { period in
                     Text(period).tag(period)
@@ -170,9 +154,7 @@ struct NotificationPreferences: View {
     private var startButton: some View {
         VStack {
             Spacer()
-            Button(action: {
-
-            }) {
+            NavigationLink(destination: IntakeProgress(totalWaterGoal: dailyWaterIntake)) {
                 Text("Start")
                     .frame(maxWidth: .infinity)
                     .padding()
