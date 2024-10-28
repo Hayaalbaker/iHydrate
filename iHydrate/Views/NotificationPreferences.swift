@@ -15,6 +15,7 @@ struct NotificationPreferences: View {
     var body: some View {
             VStack(alignment: .leading) {
                 customBackButton
+                Spacer()
                 header
                 timeInputSection
                 notificationIntervalSection
@@ -33,11 +34,11 @@ struct NotificationPreferences: View {
             HStack {
                 Image(systemName: "chevron.left")
                     .font(.title2)
-                Text("Back")
-                    .font(.headline)
+              //  Text("Back")
+                //    .font(.headline)
             }
             .padding()
-            .foregroundColor(.blue)
+            .foregroundColor(.lightBlue)
         }
     }
     
