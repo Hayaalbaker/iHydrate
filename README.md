@@ -84,4 +84,4 @@ Together, we can improve the hydration tracking experience for everyone. Thank y
 
 ## 📬 Contact
 
-If you need any additional information or help, please connect on GitHub at [Hayaalbaker](https://github.com/Hayaalbaker) or email me at haya.aalbaker@gmail.com.
+If you need additional information or help, please connect on GitHub at [Hayaalbaker](https://github.com/Hayaalbaker) or email me at haya.aalbaker@gmail.com.
