@@ -2,6 +2,9 @@
 
 Welcome to **iHydrate**, a water intake tracking app designed to help you stay hydrated.
 
+<div align="center">
+  <img src="images/Thumbnail.png" alt="Onboarding Screen 01"/>
+</div>
 
 ## 🌟 Features
 
