@@ -2,7 +2,6 @@
 
 Welcome to **iHydrate**, a water intake tracking app designed to help you stay hydrated.
 
-<!-- ![Hydrate App Screens](path/to/your/image.png) Replace with the path to your image -->
 
 ## 🌟 Features
 
@@ -20,6 +19,16 @@ Welcome to **iHydrate**, a water intake tracking app designed to help you stay h
    - 🐢 Midway checkpoint.
    - 🐇 Approaching the goal.
    - 👏 Goal achieved!
+
+## 🖼️ Screenshots
+
+<div align="center">
+  <img src="images/Onboarding Screen 01 (Body weight).jpg" alt="Onboarding Screen 01" width="200"/>
+  <img src="images/Onboarding Screen 02 (Notification Preferences).png" alt="Onboarding Screen 02" width="200"/>
+  <img src="images/Today's Intank progress (Liter) 2.jpg" alt="Today's Intake Progress" width="200"/>
+  <img src="images/Today's Intank progress (Liter) Copy.jpg" alt="Today's Intake Progress Copy" width="200"/>
+  <img src="images/Today's Intank progress (Liter).jpg" alt="Today's Intake Progress Final" width="200"/>
+</div>
 
 ## 🛠️ Installation
 
