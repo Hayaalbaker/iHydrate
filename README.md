@@ -7,14 +7,14 @@ Welcome to **iHydrate**, a water intake tracking app designed to help you stay h
 ## 🌟 Features
 
 - **Personalized Water Goals**: Set a daily hydration goal based on your body weight.
-- **Custom Notifications**: Choose the frequency and hours to receive reminders.
+- **Custom Notifications**: Choose the frequency and hours to receive reminders. (Coming soon!)
 - **Progress Tracking**: Visualize your water intake progress in real-time.
-- **Fun Animations**: See progress milestones represented with cute animal icons.
+- **Fun Animations**: See progress milestones with cute animal icons.
 
 ## 📱 Screens
 
 1. **Onboarding**: Set your body weight and customize your hydration plan.
-2. **Notification Preferences**: Specify start and end times for reminders, along with intervals.
+2. **Notification Preferences**: Specify start and end times for reminders and intervals.
 3. **Water Intake Tracking**: Visual progress display with indicators for various stages:
    - 💤 Start your hydration journey.
    - 🐢 Midway checkpoint.
